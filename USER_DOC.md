@@ -46,6 +46,6 @@ There, you can also personalize some of the usernames for the various services (
 
 ## Managing Credentials
 
-The credentials do not come by default with the repository as it would lead to weaker security.
+The credentials do not come by default with the repository, as it would lead to weaker security.
 
-As such, if you followed, the [Instructions](/README.md) section in the READ_ME you should have a folder named secrets in the root of the project with four files, one for each password that is required for this project.
+As such, if you followed, the [Instructions](/README.md#3-creating-the-secrets-folder) section in the READ_ME you should have a folder named secrets in the root of the project with six files, one for each password that is required for this project, and other important variables that need to be kept secret.
