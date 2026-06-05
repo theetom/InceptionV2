@@ -32,20 +32,38 @@ For this project, you'll need the following on your machine:
 
 For both Cmake and Github run the following lines in your terminal.
 
-`sudo apt install cmake -y`
-`sudo apt install git -y`
+```bash
+sudo apt install cmake -y
+sudo apt install git -y
+```
 
 For docker the installation is a bit complex. You can follow their installation guide [here for debian](https://docs.docker.com/engine/install/debian/#install-using-the-repository) and [here for ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
+
+After installing Docker add yourself to the Docker group:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Then either logout and log back in or:
+
+```bash
+newgrp docker
+```
 
 ### 2. Downloading the Repository (project)
 
 Once you have completed the installation of the various software you will need to download the repository. You can run the following command.
 
-`git clone https://github.com/theetom/InceptionV2.git Inception`
+```bash
+git clone https://github.com/theetom/InceptionV2.git Inception
+```
 
 Change into to the directory that was just created.
 
-`cd Inception`
+```bash
+cd Inception
+```
 
 ### 3. Creating and Populating the Secrets Folder
 
@@ -53,11 +71,15 @@ To run, Docker will need access to certain variables that should be unique and n
 
 You can run the following command:
 
-`mkdir secrets`
+```bash
+mkdir secrets
+```
 
 Then change into the folder you just created.
 
-`cd secrets`
+```bash
+cd secrets
+```
 
 Here you will have to create six files. 
 * db_root_password.txt
@@ -69,15 +91,32 @@ Here you will have to create six files.
 
 You can just run the following command.
 
-`touch db_root_password.txt db_password.txt wp_admin_password.txt wp_user_password.txt wp_admin_email.txt wp_admin_username.txt`
+```bash
+touch db_root_password.txt db_password.txt wp_admin_password.txt wp_user_password.txt wp_admin_email.txt wp_admin_username.txt
+```
 
 You then will have to write in each of them the passwords, email, and username you want. Or alternatively run the following command to have them all with basic, unsafe passwords.
 
-`echo "password" >> db_root_password.txt && echo "password" >> db_password.txt && echo "password" >> wp_admin_password.txt && echo "password" >> wp_user_password.txt &&`
+```bash
+echo -n "password" >> db_root_password.txt && echo -n "password" >> db_password.txt && echo -n "password" >> wp_admin_password.txt && echo -n "password" >> wp_user_password.txt && echo -n "admin@admin.com" >> wp_admin_email.txt && echo -n "admin" >> wp_admin_username.txt
+```
 
+### 4. Adding Domain Name to Host file
 
+Finally the last step before you can launch the project. Right now, if you run the following:
 
+```bash
+make
+```
 
+You won't be able to access your website through your chosen domain name (you can change it [here](/srcs/.env)).
+The last command is to add a mapping from 127.0.0.1 (localhost) to your domain.
+
+```bash
+sudo sh -c 'echo "127.0.0.1 toferrei.42.fr" >> /etc/hosts'
+```
+
+If you changed your domain name in the [.env file](/srcs/.env). Change the above line accordingly.
 
 ###
 
