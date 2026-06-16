@@ -118,9 +118,17 @@ sudo sh -c 'echo "127.0.0.1 toferrei.42.fr" >> /etc/hosts'
 
 If you changed your domain name in the [.env file](/srcs/.env). Change the above line accordingly.
 
-###
+So far you should have the project usable.
+
+To run it, go to the root directory and run
+
+```bash
+make
+```
 
 ## Resources
+
+Ai was used as part of the research of this project and the making of the README, DEV_DOC and USER_DOC.
 
 ## Project Description
 
