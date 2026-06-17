@@ -53,6 +53,20 @@ If you also want to remove the persistent data stored under `/home/$USER/data`, 
 make fclean
 ```
 
+Two other useful commands are:
+
+```bash
+make status
+```
+
+This shows which containers are running.
+
+```bash
+make logs
+```
+
+This streams the logs from all services.
+
 [*To read about the remaining make commands please refer to the Build and Launch section in the DEV_DOC. (clicking on this link will take you there)*](/DEV_DOC.md#build-and-launch)
 
 ## Accessing the Website
@@ -119,3 +133,5 @@ make testdb
 ```
 
 This opens a MariaDB shell inside the running database container.
+
+If you need a shell inside the Wordpress or Nginx containers for troubleshooting, use `make wpshell` or `make nginxshell`.

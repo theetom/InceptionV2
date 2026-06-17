@@ -128,7 +128,7 @@ make
 
 ## Resources
 
-Ai was used as part of the research of this project and the making of the README, DEV_DOC and USER_DOC.
+Ai was used as part of the research of this project and the making of some parts of the README, DEV_DOC and USER_DOC, and for parts of the Makefile. 
 
 ## Project Description
 
@@ -166,4 +166,3 @@ Both volumes and bind mounts let data persist outside a container, but they serv
 * A **bind mount** maps a file or directory from the host machine directly into a container. It is useful when you want the container to read or write to a specific host path.
 
 For this project, volumes are the safer choice for persistent service data because they keep the container setup cleaner and less dependent on the host filesystem.
-

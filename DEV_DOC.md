@@ -86,6 +86,20 @@ make re
 
 Performs a full reset by removing the stack and the local data directory, then builds and launches everything again.
 
+### Status and logs
+
+```bash
+make status
+```
+
+Shows the current state of the Compose services.
+
+```bash
+make logs
+```
+
+Streams the logs for all services.
+
 ## Container Management
 
 The Makefile includes a few useful commands for working with the containers directly.
@@ -107,6 +121,42 @@ make runmariadb
 ```
 
 Builds and runs the MariaDB image locally.
+
+```bash
+make dbshell
+```
+
+Opens a MariaDB shell in the running database container.
+
+```bash
+make wpshell
+```
+
+Opens a shell in the Wordpress container.
+
+```bash
+make nginxshell
+```
+
+Opens a shell in the Nginx container.
+
+```bash
+make rebuild-db
+```
+
+Rebuilds only the database service.
+
+```bash
+make rebuild-wp
+```
+
+Rebuilds only the Wordpress service.
+
+```bash
+make rebuild-nginx
+```
+
+Rebuilds only the Nginx service.
 
 For direct Docker Compose inspection, the following commands are also useful:
 
@@ -152,4 +202,8 @@ That command stops the stack, removes unused Docker objects, and deletes `/home/
 * Stop: `make stop`
 * Restart: `make restart`
 * Full reset: `make re`
+* Status: `make status`
+* Logs: `make logs`
 * Inspect MariaDB: `make testdb`
+* Open a shell in Wordpress: `make wpshell`
+* Open a shell in Nginx: `make nginxshell`
