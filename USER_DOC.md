@@ -8,44 +8,114 @@ If you have any doubts about what you need to install everything you need please
 
 ## The Stack
 
-This project is composed of three microservices that together form the basis for a small Wordpress based website, and Docker Compose to orchestrate it. Lastly, there is a Makefile allowing you to use smaller commands to set up the containers, stop them, or restart them.
 
-There are three microservices in three corresponding containers. A database (MariaDB), the Wordpress, and a reverse proxy server (Nginx).
+This project runs a small Wordpress website with three services managed by Docker Compose and started through the Makefile.
 
-All you need to run the server is to use the before mentioned make commands.
+The stack is made of these containers:
+
+* **MariaDB** stores the Wordpress database.
+* **Wordpress** serves the website and handles the admin panel.
+* **Nginx** acts as a reverse proxy and serves the site over HTTPS.
+
+The services share one Docker network so they can communicate with each other by service name.
 
 ## Starting and Stopping the Project
 
-    make
+From the root of the project, run:
 
-Will make all the images and run the containers from them.
+```bash
+make
+```
 
-    make restart
+This builds the images if needed, creates the data directories, and starts the containers in the background.
 
-Will restart the containers.
+To restart the running containers, use:
 
-    make stop
+```bash
+make restart
+```
 
-Will strictly stop the containers.
+To stop the stack, use:
 
-    make clean
+```bash
+make stop
+```
 
-Will stop the containers and delete them.
+To stop the containers and remove unused Docker data, use:
+
+```bash
+make clean
+```
+
+If you also want to remove the persistent data stored under `/home/$USER/data`, use:
+
+```bash
+make fclean
+```
 
 [*To read about the remaining make commands please refer to the Build and Launch section in the DEV_DOC. (clicking on this link will take you there)*](/DEV_DOC.md#build-and-launch)
 
 ## Accessing the Website
 
-By default this website has the following domain: https://toferrei.42.fr
+By default, the website is available at:
 
-To access it you can just type it into a browser while the project is running. You can also personalize this domain by accessing .env file and changing to anything your heart desires.
+```text
+https://toferrei.42.fr
+```
 
-There, you can also personalize some of the usernames for the various services (refrain from putting passwords *See Managing Credentials section*).
+Open that address in a browser while the project is running. If you change the domain name in [srcs/.env](/srcs/.env), use the new domain instead.
 
-[*Link to .env*](/srcs/.env)
+You also need a matching entry in `/etc/hosts` that points the domain to `127.0.0.1`.
+
+The Wordpress administration panel is available at:
+
+```text
+https://toferrei.42.fr/wp-admin
+```
+
+Log in there with the administrator credentials created from your secret files.
 
 ## Managing Credentials
 
-The credentials do not come by default with the repository, as it would lead to weaker security.
+The sensitive credentials are not stored directly in the repository.
 
-As such, if you followed, the [Instructions](/README.md#3-creating-the-secrets-folder) section in the READ_ME you should have a folder named secrets in the root of the project with six files, one for each password that is required for this project, and other important variables that need to be kept secret.
+You should create a `secrets` folder in the root of the project with these files:
+
+* `db_root_password.txt`
+* `db_password.txt`
+* `wp_admin_password.txt`
+* `wp_user_password.txt`
+* `wp_admin_email.txt`
+* `wp_admin_username.txt`
+
+These files are read by Docker Compose and passed to MariaDB and Wordpress at container start.
+
+The non-sensitive settings, such as the domain name, database name, and Wordpress username, are stored in [srcs/.env](/srcs/.env).
+
+## Checking That Everything Works
+
+If the stack started correctly, you should see three running containers:
+
+* `mariadb`
+* `wordpress` running as `wp-php`
+* `nginx`
+
+You can check their status with:
+
+```bash
+docker compose -f srcs/docker-compose.yml ps
+```
+
+If you want to inspect a service, check its logs with:
+
+```bash
+docker compose -f srcs/docker-compose.yml logs <service-name>
+```
+
+For example, to check the database directly, the Makefile also includes:
+
+```bash
+make testdb
+```
+
+This opens a MariaDB shell inside the running database container.
