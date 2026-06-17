@@ -134,9 +134,36 @@ Ai was used as part of the research of this project and the making of the README
 
 ### Virtual Machines vs Docker
 
+Virtual machines and Docker both isolate applications, but they do it at different levels.
+
+* A **virtual machine** emulates an entire operating system. It includes its own kernel, system files, and resources, which makes it heavier but also more isolated.
+* **Docker** uses containers that share the host kernel. Containers start faster, use fewer resources, and are easier to scale for small services such as the ones used in this project.
+
+
 ### Secrets vs Environment Variables
+
+Secrets and environment variables are both used to provide configuration to containers, but they are not meant for the same type of data.
+
+* **Environment variables** are convenient for normal configuration values such as a domain name, a port, or a database name.
+* **Secrets** are meant for sensitive data such as passwords, API keys, or private credentials.
+
+In this project, passwords and other private values are stored in separate secret files so they are not hard-coded in the repository and are easier to manage securely.
 
 ### Docker Network vs Host Network
 
+Networking controls how containers communicate with each other and with the outside world.
+
+* A **Docker network** gives containers their own isolated network. Containers can reach each other by service name, which is useful for services like Nginx, Wordpress, and MariaDB.
+* The **host network** makes a container share the host machine's network stack directly. This removes isolation and is usually less flexible for multi-container setups.
+
+Inception uses Docker networking because it keeps the services separated while still allowing them to communicate cleanly.
+
 ### Docker Volumes vs Bind Mounts
+
+Both volumes and bind mounts let data persist outside a container, but they serve different purposes.
+
+* A **Docker volume** is managed by Docker. It is the preferred choice for persistent application data such as database files because it is portable and easier to maintain.
+* A **bind mount** maps a file or directory from the host machine directly into a container. It is useful when you want the container to read or write to a specific host path.
+
+For this project, volumes are the safer choice for persistent service data because they keep the container setup cleaner and less dependent on the host filesystem.
 
